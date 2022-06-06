@@ -1,0 +1,44 @@
+unit View.Entidade.Exemplo;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, System.JSON, Controller;
+
+{$METHODINFO ON}
+
+type
+  TExemplo = class(TDataModule)
+    procedure DataModuleCreate(Sender: TObject);
+  private
+    { Private declarations }
+    FController : TController;
+  public
+    { Public declarations }
+    function Exemplo(const Key: String): TJSONArray;
+  end;
+
+{$METHODINFO OFF}
+
+var
+  Exemplo: TExemplo;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+{ TExemplo }
+
+procedure TExemplo.DataModuleCreate(Sender: TObject);
+begin
+  FController := TController.Create;
+end;
+
+function TExemplo.Exemplo(const Key: String): TJSONArray;
+begin
+
+end;
+
+end.

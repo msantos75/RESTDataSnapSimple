@@ -1,0 +1,12 @@
+unit Model.Entidade.Factory;
+
+interface
+
+type
+  TModelEntidadeFactory = class
+
+  end;
+
+implementation
+
+end.

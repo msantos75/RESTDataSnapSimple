@@ -1,0 +1,4 @@
+object Exemplo: TExemplo
+  Height = 218
+  Width = 414
+end

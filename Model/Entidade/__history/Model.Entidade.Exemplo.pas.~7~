@@ -1,0 +1,54 @@
+unit Model.Entidade.Exemplo;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, System.JSON;
+
+type
+  TModelEntidadeExemplo = class(TDataModule)
+  private
+    { Private declarations }
+    FDQuery1: TFDQuery;
+  public
+    { Public declarations }
+    function Get(const Key: String = ''): TJSONArray;
+  end;
+
+var
+  ModelEntidadeExemplo: TModelEntidadeExemplo;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+uses Model.Conexao.Firedac,
+     DataSetConverter4D.Helper,
+     DataSetConverter4D.Impl;
+
+{$R *.dfm}
+
+{ TModelEntidadeExemplo }
+
+function TModelEntidadeExemplo.Get(const Key: String = ''): TJSONArray;
+begin
+  With FDQuery1 do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT * FROM SFPFUNCIONARIOS');
+    If Key <> '' then
+    begin
+      SQL.Add('WHERE CODIGO=:C');
+      ParamByName('C').AsString := Key;
+    end;
+    Open;
+  end;
+
+  Result := FDQuery1.AsJSONArray;
+end;
+
+end.

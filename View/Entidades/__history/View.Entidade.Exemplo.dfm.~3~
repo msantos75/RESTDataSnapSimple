@@ -1,0 +1,5 @@
+object Exemplo: TExemplo
+  OnCreate = DataModuleCreate
+  Height = 218
+  Width = 414
+end
