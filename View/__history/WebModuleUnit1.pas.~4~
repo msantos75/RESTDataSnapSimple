@@ -22,7 +22,6 @@ type
     DSProxyGenerator1: TDSProxyGenerator;
     DSServerMetaDataProvider1: TDSServerMetaDataProvider;
     ServerEntidadeExemplo: TDSServerClass;
-    DSAuthenticationManager1: TDSAuthenticationManager;
     procedure DSServerClass1GetClass(DSServerClass: TDSServerClass;
       var PersistentClass: TPersistentClass);
     procedure ServerFunctionInvokerHTMLTag(Sender: TObject; Tag: TTag;
@@ -39,8 +38,6 @@ type
       var PersistentClass: TPersistentClass);
     procedure DSRESTWebDispatcher1FormatResult(Sender: TObject; var ResultVal: TJSONValue;
       const Command: TDBXCommand; var Handled: Boolean);
-    procedure DSAuthenticationManager1UserAuthenticate(Sender: TObject; const Protocol,
-      Context, User, Password: string; var valid: Boolean; UserRoles: TStrings);
   private
     { Private declarations }
     FServerFunctionInvokerAction: TWebActionItem;
@@ -57,15 +54,6 @@ implementation
 {$R *.dfm}
 
 uses ServerMethodsUnit1, Web.WebReq, View.Entidade.Exemplo;
-
-procedure TWebModule1.DSAuthenticationManager1UserAuthenticate(Sender: TObject;
-  const Protocol, Context, User, Password: string; var valid: Boolean;
-  UserRoles: TStrings);
-begin
-  valid := False;
-  if (User='teste') and (Password='123') then
-    valid := true;
-end;
 
 procedure TWebModule1.DSRESTWebDispatcher1FormatResult(Sender: TObject;
   var ResultVal: TJSONValue; const Command: TDBXCommand; var Handled: Boolean);

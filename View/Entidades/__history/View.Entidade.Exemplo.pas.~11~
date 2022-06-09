@@ -18,8 +18,6 @@ type
     { Public declarations }
     function Exemplo(const Key: String): TJSONArray;
     procedure acceptExemplo(const Key: String; jObject: TJSONObject);
-    procedure updateExemplo(const Key: String; jObject: TJSONObject);
-    procedure cancelExemplo(const Key: String);
   end;
 
 {$METHODINFO OFF}
@@ -40,11 +38,6 @@ begin
   FController.Entidades.Exemplo.Put(Key, jObject);
 end;
 
-procedure TExemplo.cancelExemplo(const Key: String);
-begin
-  FController.Entidades.Exemplo.Delete(Key);
-end;
-
 procedure TExemplo.DataModuleCreate(Sender: TObject);
 begin
   FController := TController.Create;
@@ -58,11 +51,7 @@ end;
 function TExemplo.Exemplo(const Key: String): TJSONArray;
 begin
   Result := FController.Entidades.Exemplo.Get(Key);
-end;
-
-procedure TExemplo.updateExemplo(const Key: String; jObject: TJSONObject);
-begin
- FController.Entidades.Exemplo.Post(Key, jObject);
+  // http://localhost:8080/datasnap/rest/texemplo/exemplo
 end;
 
 end.

@@ -19,7 +19,6 @@ type
     function Exemplo(const Key: String): TJSONArray;
     procedure acceptExemplo(const Key: String; jObject: TJSONObject);
     procedure updateExemplo(const Key: String; jObject: TJSONObject);
-    procedure cancelExemplo(const Key: String);
   end;
 
 {$METHODINFO OFF}
@@ -38,11 +37,6 @@ implementation
 procedure TExemplo.acceptExemplo(const Key: String; jObject: TJSONObject);
 begin
   FController.Entidades.Exemplo.Put(Key, jObject);
-end;
-
-procedure TExemplo.cancelExemplo(const Key: String);
-begin
-  FController.Entidades.Exemplo.Delete(Key);
 end;
 
 procedure TExemplo.DataModuleCreate(Sender: TObject);

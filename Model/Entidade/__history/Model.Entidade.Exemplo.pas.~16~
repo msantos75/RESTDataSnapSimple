@@ -18,7 +18,6 @@ type
     function Get(const Key: String = ''): TJSONArray;
     function Put(const Key: String; jObject: TJSONObject): TModelEntidadeExemplo;
     function Post(const Key: String; jObject: TJSONObject): TModelEntidadeExemplo;
-    function Delete(const Key: String): TModelEntidadeExemplo;
   end;
 
 var
@@ -35,25 +34,6 @@ uses Model.Conexao.Firedac,
 {$R *.dfm}
 
 { TModelEntidadeExemplo }
-
-function TModelEntidadeExemplo.Delete(const Key: String): TModelEntidadeExemplo;
-begin
-  // http://localhost:8080/datasnap/rest/texemplo/exemplo/Key
-  // informar no body um elemento JSON
-
-  Result := Self;
-
-  With FDQuery1 do
-  begin
-    Close;
-    SQL.Clear;
-    SQL.Add('DELETE FROM SFPFUNCIONARIOS');
-    SQL.Add('WHERE EMPRESA=:EMPRESA AND CODIGO=:CODIGO');
-    ParamByName('EMPRESA').Value := 4;
-    ParamByName('CODIGO').Value := Key;
-    ExecSQL;
-  end;
-end;
 
 function TModelEntidadeExemplo.Get(const Key: String = ''): TJSONArray;
 begin
@@ -79,7 +59,7 @@ end;
 function TModelEntidadeExemplo.Post(const Key: String;
   jObject: TJSONObject): TModelEntidadeExemplo;
 begin
-  // http://localhost:8080/datasnap/rest/texemplo/exemplo/Key
+  // http://localhost:8080/datasnap/rest/texemplo/exemplo/-1
   // informar no body um elemento JSON
 
   Result := Self;

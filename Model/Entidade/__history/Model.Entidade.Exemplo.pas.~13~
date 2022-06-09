@@ -10,12 +10,13 @@ uses
 
 type
   TModelEntidadeExemplo = class(TDataModule)
+    FDQuery1: TFDQuery;
   private
     { Private declarations }
-    FDQuery1: TFDQuery;
   public
     { Public declarations }
     function Get(const Key: String = ''): TJSONArray;
+    function Put(const Key: String; jObject: TJSONObject): TModelEntidadeExemplo;
   end;
 
 var
@@ -39,15 +40,35 @@ begin
   begin
     Close;
     SQL.Clear;
-    SQL.Add('SELECT * FROM SFPFUNCIONARIOS');
+    SQL.Add('SELECT CODIGO, NOME FROM SFPFUNCIONARIOS');
+    SQL.Add('WHERE EMPRESA=4');
     If Key <> '' then
     begin
-      SQL.Add('WHERE CODIGO=:C');
+      SQL.Add('AND CODIGO=:C');
       ParamByName('C').AsString := Key;
     end;
     Open;
-
   end;
+
+  Result := FDQuery1.AsJSONArray;
+end;
+
+function TModelEntidadeExemplo.Put(const Key: String;
+  jObject: TJSONObject): TModelEntidadeExemplo;
+begin
+  Result := Self;
+
+  With FDQuery1 do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT * FROM SFPFUNCIONARIOS');
+    SQL.Add('WHERE 1=2'); // Condição forçada para não retornar nenhum registro, obtendo apenas os campos da tabela
+    Open;
+  end;
+
+  FDQuery1.FromJSONObject(jObject);
+  FDQuery1.ApplyUpdates(-1);
 end;
 
 end.

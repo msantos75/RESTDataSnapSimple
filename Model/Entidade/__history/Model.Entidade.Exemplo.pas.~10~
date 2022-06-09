@@ -25,7 +25,9 @@ implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
-uses Model.Conexao.Firedac;
+uses Model.Conexao.Firedac,
+     DataSetConverter4D.Helper,
+     DataSetConverter4D.Impl;
 
 {$R *.dfm}
 
@@ -33,7 +35,21 @@ uses Model.Conexao.Firedac;
 
 function TModelEntidadeExemplo.Get(const Key: String = ''): TJSONArray;
 begin
+  With FDQuery1 do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT CODIGO, NOME FROM SFPFUNCIONARIOS');
+    SQL.Add('WHERE EMPRESA=4');
+    If Key <> '' then
+    begin
+      SQL.Add('AND CODIGO=:C');
+      ParamByName('C').AsString := Key;
+    end;
+    Open;
+  end;
 
+  Result := FDQuery1.AsJSONArray;
 end;
 
 end.

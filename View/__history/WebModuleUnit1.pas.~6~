@@ -41,6 +41,8 @@ type
       const Command: TDBXCommand; var Handled: Boolean);
     procedure DSAuthenticationManager1UserAuthenticate(Sender: TObject; const Protocol,
       Context, User, Password: string; var valid: Boolean; UserRoles: TStrings);
+    procedure DSAuthenticationManager1UserAuthorize(Sender: TObject;
+      AuthorizeEventObject: TDSAuthorizeEventObject; var valid: Boolean);
   private
     { Private declarations }
     FServerFunctionInvokerAction: TWebActionItem;
@@ -65,6 +67,12 @@ begin
   valid := False;
   if (User='teste') and (Password='123') then
     valid := true;
+end;
+
+procedure TWebModule1.DSAuthenticationManager1UserAuthorize(Sender: TObject;
+  AuthorizeEventObject: TDSAuthorizeEventObject; var valid: Boolean);
+begin
+  valid := true;
 end;
 
 procedure TWebModule1.DSRESTWebDispatcher1FormatResult(Sender: TObject;

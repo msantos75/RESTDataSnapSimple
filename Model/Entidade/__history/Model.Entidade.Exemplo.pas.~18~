@@ -53,6 +53,9 @@ begin
     ParamByName('CODIGO').Value := Key;
     ExecSQL;
   end;
+
+
+
 end;
 
 function TModelEntidadeExemplo.Get(const Key: String = ''): TJSONArray;
